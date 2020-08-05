@@ -17,6 +17,7 @@ public:
     virtual std::vector<TWCoinType> coinTypes() const {
         return {
             TWCoinTypeBitcoin,
+            TWCoinTypeBitcoinTest,
             TWCoinTypeBitcoinCash,
             TWCoinTypeBitcoinGold,
             TWCoinTypeDash,
