@@ -9,6 +9,7 @@
 #include "Address.h"
 #include "CashAddress.h"
 #include "SegwitAddress.h"
+#include "NativeSegwitAddress.h"
 #include "Signer.h"
 
 using namespace TW::Bitcoin;
@@ -17,6 +18,7 @@ using namespace std;
 bool Entry::validateAddress(TWCoinType coin, const string& address, TW::byte p2pkh, TW::byte p2sh, const char* hrp) const {
     switch (coin) {
         case TWCoinTypeBitcoin:
+            return NativeSegwitAddress::isValid(address);
         case TWCoinTypeBitcoinTest:
         case TWCoinTypeDigiByte:
         case TWCoinTypeLitecoin:
@@ -59,13 +61,13 @@ string Entry::normalizeAddress(TWCoinType coin, const string& address) const {
 string Entry::deriveAddress(TWCoinType coin, const PublicKey& publicKey, TW::byte p2pkh, const char* hrp) const {
     switch (coin) {
         case TWCoinTypeBitcoin:
+            return NativeSegwitAddress(publicKey, TWCoinTypeP2shPrefix(coin)).string();
         case TWCoinTypeBitcoinTest:
         case TWCoinTypeDigiByte:
         case TWCoinTypeLitecoin:
         case TWCoinTypeViacoin:
         case TWCoinTypeBitcoinGold:
             return SegwitAddress(publicKey, 0, hrp).string();
-
         case TWCoinTypeBitcoinCash:
             return CashAddress(publicKey).string();
 
