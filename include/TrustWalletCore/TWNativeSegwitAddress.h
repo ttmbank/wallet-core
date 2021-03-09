@@ -17,34 +17,37 @@ struct TWPublicKey;
 
 /// Represents a BIP 0173 address.
 TW_EXPORT_CLASS
-struct TWSegwitAddress;
+struct TWNativeSegwitAddress;
 
 /// Compares two addresses for equality.
 TW_EXPORT_STATIC_METHOD
-bool TWSegwitAddressEqual(struct TWSegwitAddress *_Nonnull lhs, struct TWSegwitAddress *_Nonnull rhs);
+bool TWNativeSegwitAddressEqual(struct TWNativeSegwitAddress *_Nonnull lhs, struct TWNativeSegwitAddress *_Nonnull rhs);
 
 /// Determines if the string is a valid Bech32 address.
 TW_EXPORT_STATIC_METHOD
-bool TWSegwitAddressIsValidString(TWString *_Nonnull string);
+bool TWNativeSegwitAddressIsValidString(TWString *_Nonnull string);
 
 /// Creates an address from a string representaion.
 TW_EXPORT_STATIC_METHOD
-struct TWSegwitAddress *_Nullable TWSegwitAddressCreateWithString(TWString *_Nonnull string);
+struct TWNativeSegwitAddress *_Nullable TWNativeSegwitAddressCreateWithString(TWString *_Nonnull string);
 
 /// Creates an address from a public key.
 TW_EXPORT_STATIC_METHOD
-struct TWSegwitAddress *_Nonnull TWSegwitAddressCreateWithPublicKey(enum TWHRP hrp, struct TWPublicKey *_Nonnull publicKey);
+struct TWNativeSegwitAddress *_Nonnull TWNativeSegwitAddressCreateWithPublicKey(enum TWHRP hrp, struct TWPublicKey *_Nonnull publicKey);
 
 TW_EXPORT_METHOD
-void TWSegwitAddressDelete(struct TWSegwitAddress *_Nonnull address);
+void TWNativeSegwitAddressDelete(struct TWNativeSegwitAddress *_Nonnull address);
 
 /// Returns the address string representation.
 TW_EXPORT_PROPERTY
-TWString *_Nonnull TWSegwitAddressDescription(struct TWSegwitAddress *_Nonnull address);
+TWString *_Nonnull TWNativeSegwitAddressDescription(struct TWNativeSegwitAddress *_Nonnull address);
 
+/// Returns the human-readable part.
+TW_EXPORT_PROPERTY
+enum TWHRP TWNativeSegwitAddressHRP(struct TWNativeSegwitAddress *_Nonnull address);
 
 /// Returns the witness program
 TW_EXPORT_PROPERTY
-TWData *_Nonnull TWSegwitAddressWitnessProgram(struct TWSegwitAddress *_Nonnull address);
+TWData *_Nonnull TWNativeSegwitAddressWitnessProgram(struct TWNativeSegwitAddress *_Nonnull address);
 
 TW_EXTERN_C_END

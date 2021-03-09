@@ -73,3 +73,8 @@ std::pair<NativeSegwitAddress, bool> NativeSegwitAddress::fromRaw(const byte pre
 
     return std::make_pair(NativeSegwitAddress(data[0], conv), true);
 }
+
+std::pair<NativeSegwitAddress, bool> NativeSegwitAddress::decode(const std::string& addr) {
+    return std::make_pair(NativeSegwitAddress(), false);
+
+}
