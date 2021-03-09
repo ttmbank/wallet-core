@@ -8,6 +8,7 @@
 #include "NativeSegwitAddress.h"
 #include "Script.h"
 #include "../Bech32.h"
+#include "../Base58.h"
 
 #include <TrezorCrypto/ecdsa.h>
 #include <TrustWalletCore/TWHRP.h>
