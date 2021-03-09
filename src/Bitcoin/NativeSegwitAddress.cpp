@@ -8,8 +8,6 @@
 #include "NativeSegwitAddress.h"
 #include "Script.h"
 #include "../Bech32.h"
-#include "../Base58.h"
-#include "../Base58Address.h"
 
 #include <TrezorCrypto/ecdsa.h>
 #include <TrustWalletCore/TWHRP.h>
@@ -53,10 +51,6 @@ NativeSegwitAddress::NativeSegwitAddress(const PublicKey& publicKey, byte prefix
 
 
 std::string NativeSegwitAddress::string() const {
-    //Data enc;
-    //enc.push_back(static_cast<uint8_t>(0));
-    //enc.push_back(static_cast<uint8_t>(0x14));
-    //enc.insert(enc.end(), std::begin(witnessProgram),std::end(witnessProgram));
     auto script = Script(witnessProgram);
     auto scriptHash = script.hash();
     auto result = Data();
