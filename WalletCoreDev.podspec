@@ -15,7 +15,8 @@ Pod::Spec.new do |s|
   s.libraries = 'c++'
 
   s.source = {
-    git: 'git@github.com:trustwallet/wallet-core.git'
+    git: 'git@github.com:ttmbank/wallet-core.git'
+    branch: 'master-l'
   }
 
   s.default_subspec = 'Core'
