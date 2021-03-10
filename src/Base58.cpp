@@ -12,6 +12,7 @@
 #include <algorithm>
 #include <cctype>
 #include <cassert>
+namespace TW {
 
 using namespace TW;
 
@@ -192,4 +193,5 @@ std::string Base58::encode(const byte* begin, const byte* end) const {
         it += 1;
     }
     return str;
+}
 }

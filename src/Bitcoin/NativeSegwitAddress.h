@@ -53,6 +53,10 @@ class NativeSegwitAddress {
             return prefix == rhs.prefix &&
                    witnessProgram == rhs.witnessProgram;
         }
+        /// Decodes a SegWit address.
+        ///
+        /// \returns a pair with the address and a success flag.
+        static std::pair<NativeSegwitAddress, bool> decode(const std::string& addr);
 
     private:
         NativeSegwitAddress() = default;
