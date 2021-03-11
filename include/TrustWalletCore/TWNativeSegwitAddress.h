@@ -42,9 +42,6 @@ void TWNativeSegwitAddressDelete(struct TWNativeSegwitAddress *_Nonnull address)
 TW_EXPORT_PROPERTY
 TWString *_Nonnull TWNativeSegwitAddressDescription(struct TWNativeSegwitAddress *_Nonnull address);
 
-/// Returns the human-readable part.
-TW_EXPORT_PROPERTY
-enum TWHRP TWNativeSegwitAddressHRP(struct TWNativeSegwitAddress *_Nonnull address);
 
 /// Returns the witness program
 TW_EXPORT_PROPERTY
