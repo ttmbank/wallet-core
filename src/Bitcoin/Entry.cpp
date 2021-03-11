@@ -61,6 +61,7 @@ string Entry::normalizeAddress(TWCoinType coin, const string& address) const {
 string Entry::deriveAddress(TWCoinType coin, const PublicKey& publicKey, TW::byte p2pkh, const char* hrp) const {
     switch (coin) {
         case TWCoinTypeBitcoin:
+        case TWCoinTypeBitcoinTest:
         case TWCoinTypeDigiByte:
         case TWCoinTypeLitecoin:
         case TWCoinTypeViacoin:
