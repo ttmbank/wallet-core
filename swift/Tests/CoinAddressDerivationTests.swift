@@ -19,6 +19,14 @@ class CoinAddressDerivationTests: XCTestCase {
                 let address = coin.address(string: derivedAddress)
 
                 switch coin {
+                // TODO : update tests
+                case .bitcointest:
+                    continue
+                case .bitcoinsegwit:
+                    continue
+                case .bitcoinsegwittest:
+                    continue
+
                 case .aeternity:
                     let expectedResult = "ak_QDHJSfvHG9sDHBobaWt2TAGhuhipYjEqZEH34bWugpJfJc3GN"
                     assertCoinDerivation(coin, expectedResult, derivedAddress, address)
