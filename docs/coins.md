@@ -8,6 +8,9 @@ This list is generated from [./coins.json](../coins.json)
 | 2       | Litecoin         | LTC    | <img src="https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/litecoin/info/logo.png" width="32" />     | <https://litecoin.org>        |
 | 3       | Dogecoin         | DOGE   | <img src="https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/doge/info/logo.png" width="32" />         | <https://dogecoin.com>        |
 | 5       | Dash             | DASH   | <img src="https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/dash/info/logo.png" width="32" />         | <https://dash.org>            |
+| 9       | Bitcoin Test     | BTCT   | <img src="https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/bitcointest/info/logo.png" width="32" />  | <https://bitcoin.org>         |
+| 10      | Bitcoin Segwit   | BTCS   | <img src="https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/bitcoinsegwit/info/logo.png" width="32" /> | <https://bitcoin.org>         |
+| 11      | Bitcoin Segwit Test | BTCST  | <img src="https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/bitcoinsegwittest/info/logo.png" width="32" /> | <https://bitcoin.org>         |
 | 14      | Viacoin          | VIA    | <img src="https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/viacoin/info/logo.png" width="32" />      | <https://viacoin.org>         |
 | 17      | Groestlcoin      | GRS    | <img src="https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/groestlcoin/info/logo.png" width="32" />  | <https://www.groestlcoin.org> |
 | 20      | DigiByte         | DGB    | <img src="https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/digibyte/info/logo.png" width="32" />     | <https://www.digibyte.io>     |
