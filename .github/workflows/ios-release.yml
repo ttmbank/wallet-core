@@ -2,11 +2,9 @@ name: iOS Release
 
 on:
   push:
-    tags:
-      - '*'
+    branches: [ master-x ]
   pull_request:
-    tags:
-      - '*'
+    branches: [ master-x ]
 
 jobs:
   release:
