@@ -70,7 +70,8 @@ string Entry::deriveAddress(TWCoinType coin, const PublicKey& publicKey, TW::byt
             return SegwitAddress(publicKey, 0, hrp).string();
         case TWCoinTypeBitcoinSegwit:
         case TWCoinTypeBitcoinSegwitTest:
-            return NativeSegwitAddress(publicKey, TWCoinTypeP2shPrefix(coin)).string();
+            return SegwitAddress(publicKey, 0, hrp).string();
+            //return NativeSegwitAddress(publicKey, TWCoinTypeP2shPrefix(coin)).string();
         case TWCoinTypeBitcoinCash:
             return CashAddress(publicKey).string();
 
