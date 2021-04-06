@@ -30,7 +30,9 @@ func main() {
 	wallet := C.TWHDWalletCreateWithMnemonic(str, emtpy)
 	defer C.TWHDWalletDelete(wallet)
 
-	key := C.TWHDWalletGetKeyForCoin(wallet, C.TWCoinTypeBitcoin)
+	coinType := uint32(C.TWCoinTypeBitcoinSegwitTest)
+
+	key := C.TWHDWalletGetKeyForCoin(wallet, coinType)
 	keyData := C.TWPrivateKeyData(key)
 	defer C.TWDataDelete(keyData)
 
@@ -41,11 +43,11 @@ func main() {
 	defer C.TWDataDelete(pubKeyData)
 	fmt.Println("==> bitcoin public key is valid: ", C.TWPublicKeyIsValid(pubKeyData, C.TWPublicKeyTypeSECP256k1))
 
-	address := C.TWHDWalletGetAddressForCoin(wallet, C.TWCoinTypeBitcoin)
+	address := C.TWHDWalletGetAddressForCoin(wallet, coinType)
 	defer C.TWStringDelete(address)
 	fmt.Println("<== bitcoin address: ", types.TWStringGoString(address))
 
-	script := C.TWBitcoinScriptLockScriptForAddress(address, C.TWCoinTypeBitcoin)
+	script := C.TWBitcoinScriptLockScriptForAddress(address, coinType)
 	scriptData := C.TWBitcoinScriptData(script)
 	defer C.TWBitcoinScriptDelete(script)
 	defer C.TWDataDelete(scriptData)
@@ -78,7 +80,7 @@ func main() {
 	inputData := types.TWDataCreateWithGoBytes(inputBytes)
 	defer C.TWDataDelete(inputData)
 
-	outputData := C.TWAnySignerSign(inputData, C.TWCoinTypeBitcoin)
+	outputData := C.TWAnySignerSign(inputData, coinType)
 	defer C.TWDataDelete(outputData)
 
 	var output bitcoin.SigningOutput

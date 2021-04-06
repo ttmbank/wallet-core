@@ -14,7 +14,7 @@ Pod::Spec.new do |s|
   s.swift_version = '5.1'
 
   s.source = {
-    git: 'git@github.com:ttmbank/wallet-core.git'
+    git: 'git@github.com:trustwallet/wallet-core.git'
   }
 
   s.default_subspec = 'Core'
