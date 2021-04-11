@@ -47,5 +47,5 @@ jobs:
     - uses: actions/upload-artifact@v2
       # if: github.ref == 'refs/heads/master-x'
       with:
-        name: ../build/trustwalletcore.aar
-        path: build/app/outputs/flutter-apk/app-release.apk
+        name: trustwalletcore.aar
+        path: build/trustwalletcore.aar
