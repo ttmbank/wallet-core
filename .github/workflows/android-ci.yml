@@ -44,5 +44,5 @@ jobs:
     - uses: actions/upload-artifact@v2
       # if: github.ref == 'refs/heads/master-x'
       with:
-        name: trustwalletcore.aar
+        name: android-libs
         path: build/trustwalletcore.aar
