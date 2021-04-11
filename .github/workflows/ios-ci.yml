@@ -29,7 +29,7 @@ jobs:
     - name: Run iOS tests
       run: |
         tools/generate-files
-        tools/ios-test
+        # tools/ios-test
     - name: Build sample app
       run: |
         tools/samples-build ios
