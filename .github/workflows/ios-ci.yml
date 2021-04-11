@@ -33,3 +33,14 @@ jobs:
     - name: Build sample app
       run: |
         tools/samples-build ios
+    - name: Build artifacts
+      run: |
+        tools/ios-build
+    - uses: actions/upload-artifact@v2
+      # if: github.ref == 'refs/heads/master-x'
+      with:
+        name: ios-libs
+        path: |
+          build/ios/libprotobuf.a
+          build/ios/libTrezorCrypto.a
+          build/ios/libTrustWalletCore.a
