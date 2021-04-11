@@ -34,6 +34,7 @@ jobs:
     - name: Run test
       run: |
         tools/generate-files
+        # tools/android-test
     - name: Build sample app
       run: |
         tools/samples-build android
@@ -44,6 +45,7 @@ jobs:
       run: |
         pwd && ls
     - uses: actions/upload-artifact@v2
-        with:
-          name: ../build/trustwalletcore.aar
-          path: build/app/outputs/flutter-apk/app-release.apk
+      # if: github.ref == 'refs/heads/master-x'
+      with:
+        name: ../build/trustwalletcore.aar
+        path: build/app/outputs/flutter-apk/app-release.apk
