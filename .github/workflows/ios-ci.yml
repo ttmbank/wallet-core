@@ -44,3 +44,4 @@ jobs:
           build/ios/libprotobuf.a
           build/ios/libTrezorCrypto.a
           build/ios/libTrustWalletCore.a
+          swift
