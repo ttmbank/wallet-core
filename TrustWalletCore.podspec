@@ -10,7 +10,7 @@ Pod::Spec.new do |s|
   s.swift_version = '5.1'
   
   s.xcconfig = {
-    'USER_HEADER_SEARCH_PATHS' => '"${PODS_ROOT}/TrustWalletCore/Core"'
+    'USER_HEADER_SEARCH_PATHS' => '"${PODS_ROOT}/TrustWalletCore/include/TrustWalletCore"'
   }
 
   s.source = {
