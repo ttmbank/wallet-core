@@ -29,7 +29,16 @@ jobs:
     - name: Run iOS tests
       run: |
         tools/generate-files
-        tools/ios-test
     - name: Build sample app
       run: |
         tools/samples-build ios
+    - name: Build artifacts
+      run: |
+        tools/ios-build
+        tools/ios-archive
+    - uses: actions/upload-artifact@v2
+      # if: github.ref == 'refs/heads/master-x'
+      with:
+        name: ios-libs
+        path: |
+          TrustWalletCore-iOS.zip

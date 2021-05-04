@@ -2,9 +2,9 @@ name: Android CI
 
 on:
   push:
-    branches: [ master ]
+    branches: [ master-x ]
   pull_request:
-    branches: [ master ]
+    branches: [ master-x ]
 
 jobs:
   build:
@@ -34,7 +34,15 @@ jobs:
     - name: Run test
       run: |
         tools/generate-files
-        tools/android-test
+        # tools/android-test
     - name: Build sample app
       run: |
         tools/samples-build android
+    - name: Build artifacts
+      run: |
+        tools/android-build
+    - uses: actions/upload-artifact@v2
+      # if: github.ref == 'refs/heads/master-x'
+      with:
+        name: android-libs
+        path: build/trustwalletcore.aar
