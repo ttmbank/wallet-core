@@ -1,0 +1,25 @@
+#!/usr/bin/env ruby
+#
+# Bundles all files required to build for iOS in a zip archive.
+#
+
+require 'open3'
+require 'tempfile'
+require 'json'
+
+# Make archive
+puts 'Archiving...'
+includes = Dir.glob('include/**/*.h') + Dir.glob('lib/**/*.{h,hpp}')
+sources = Dir.glob('swift/Sources/**/*.{swift,h,m}')
+# Rename libTrustWalletCore.a to avoid conflicts with cocoapods static lib
+File.rename('build/ios/libTrustWalletCore.a', 'build/ios/libCore.a')
+libs = Dir.glob('build/ios/*.a')
+files = includes + sources + libs + ['LICENSE']
+file_name = "TrustWalletCore-iOS.zip"
+_, stderr, status = Open3.capture3('zip', file_name, *files)
+if status != 0
+  STDERR.puts stderr
+  exit 1
+end
+
+puts 'Successfully archived'
