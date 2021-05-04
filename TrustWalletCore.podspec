@@ -8,6 +8,10 @@ Pod::Spec.new do |s|
   s.module_name  = 'WalletCore'
   s.ios.deployment_target = '12.0'
   s.swift_version = '5.1'
+  
+  s.xcconfig = {
+    'USER_HEADER_SEARCH_PATHS' => '"${PODS_ROOT}/TrustWalletCore/Core"'
+  }
 
   s.source = {
     http: "https://github.com/ttmbank/wallet-core/releases/download/v1.0/TrustWalletCore-iOS.zip"
