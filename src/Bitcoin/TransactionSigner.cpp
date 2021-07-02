@@ -172,10 +172,10 @@ Result<std::vector<Data>, Error> TransactionSigner<Transaction, TransactionBuild
             }
             auto keyHash = TW::Hash::ripemd(TW::Hash::sha256(pubKey));
             auto key = keyForPublicKeyHash(keyHash);
-            if (key.empty() && !estimationMode) {
+            /*if (key.empty() && !estimationMode) {
                 // Error: missing key
                 return Result<std::vector<Data>, Error>::failure(Error(Proto::MISSING_PRIVATE_KEY, "Missing private key."));
-            }
+            }*/
             auto signature =
                 createSignature(transactionToSign, script, key, index, utxo.amount(), version);
             if (signature.empty()) {
@@ -190,10 +190,10 @@ Result<std::vector<Data>, Error> TransactionSigner<Transaction, TransactionBuild
     if (script.matchPayToPublicKey(data)) {
         auto keyHash = TW::Hash::ripemd(TW::Hash::sha256(data));
         auto key = keyForPublicKeyHash(keyHash);
-        if (key.empty() && !estimationMode) {
+        /*if (key.empty() && !estimationMode) {
             // Error: Missing key
             return Result<std::vector<Data>, Error>::failure(Error(Proto::MISSING_PRIVATE_KEY, "Missing private key."));
-        }
+        }*/
         auto signature =
             createSignature(transactionToSign, script, key, index, utxo.amount(), version);
         if (signature.empty()) {
@@ -204,10 +204,10 @@ Result<std::vector<Data>, Error> TransactionSigner<Transaction, TransactionBuild
     }
     if (script.matchPayToPublicKeyHash(data)) {
         auto key = keyForPublicKeyHash(data);
-        if (key.empty() && !estimationMode) {
+        /*if (key.empty() && !estimationMode) {
             // Error: Missing keys
             return Result<std::vector<Data>, Error>::failure(Error(Proto::MISSING_PRIVATE_KEY, "Missing private key."));
-        }
+        }*/
 
         auto signature =
             createSignature(transactionToSign, script, key, index, utxo.amount(), version);
@@ -215,9 +215,15 @@ Result<std::vector<Data>, Error> TransactionSigner<Transaction, TransactionBuild
             // Error: Failed to sign
             return Result<std::vector<Data>, Error>::failure(Error(Proto::SIGNING_ERROR, "Failed to sign."));
         }
-        if (key.empty() && estimationMode) {
+        /*if (key.empty() && estimationMode) {
             // estimation mode, key is missing: use placeholder for public key
             return Result<std::vector<Data>, Error>::success({signature, Data(PublicKey::secp256k1Size)});
+        }*/
+        if (key.empty()) {
+            // estimation mode, key is missing: use placeholder for public key
+            auto pkPlaceholder = Data(PublicKey::secp256k1Size);
+            std::fill(pkPlaceholder.begin(), pkPlaceholder.end(), 0x88);
+            return Result<std::vector<Data>, Error>::success({signature, pkPlaceholder});
         }
         auto pubkey = PrivateKey(key).getPublicKey(TWPublicKeyTypeSECP256k1);
         return Result<std::vector<Data>, Error>::success({signature, pubkey.bytes});
@@ -237,6 +243,15 @@ Data TransactionSigner<Transaction, TransactionBuilder>::createSignature(const T
     }
     Data sighash = transaction.getSignatureHash(script, index, static_cast<TWBitcoinSigHashType>(input.hash_type()), amount,
                                                 static_cast<SignatureVersion>(version));
+    if (key.empty()) {
+        auto result = Data(70);
+        std::fill(result.begin(), result.end(), 0x77);
+        std::copy(sighash.begin(), sighash.end(), result.begin()+70-sighash.size() );
+        result.push_back(static_cast<uint8_t>(input.hash_type()));
+
+        return result;
+    }
+
     auto pk = PrivateKey(key);
     auto sig = pk.signAsDER(sighash, TWCurveSECP256k1);
     if (!sig.empty()) {
