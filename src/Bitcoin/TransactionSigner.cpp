@@ -222,7 +222,11 @@ Result<std::vector<Data>, Error> TransactionSigner<Transaction, TransactionBuild
         if (key.empty()) {
             // estimation mode, key is missing: use placeholder for public key
             auto pkPlaceholder = Data(PublicKey::secp256k1Size);
-            std::fill(pkPlaceholder.begin(), pkPlaceholder.end(), 0x88);
+            std::string hashSign = ("[PUB]");
+
+            std::fill(pkPlaceholder.begin(), pkPlaceholder.end(), 0x31);
+            std::copy(hashSign.begin(), hashSign.end(), pkPlaceholder.begin());
+
             return Result<std::vector<Data>, Error>::success({signature, pkPlaceholder});
         }
         auto pubkey = PrivateKey(key).getPublicKey(TWPublicKeyTypeSECP256k1);
@@ -245,7 +249,10 @@ Data TransactionSigner<Transaction, TransactionBuilder>::createSignature(const T
                                                 static_cast<SignatureVersion>(version));
     if (key.empty()) {
         auto result = Data(70);
-        std::fill(result.begin(), result.end(), 0x77);
+        std::string hashSign = ("[HASH]");
+        std::fill(result.begin(), result.end(), 0x30);
+        //hashSign.copy(result.begin(), 0, 5);
+        std::copy(hashSign.begin(), hashSign.end(), result.begin());
         std::copy(sighash.begin(), sighash.end(), result.begin()+70-sighash.size() );
         result.push_back(static_cast<uint8_t>(input.hash_type()));
 

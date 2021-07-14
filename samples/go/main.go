@@ -12,6 +12,7 @@ import "C"
 import (
 	"encoding/hex"
 	"fmt"
+	"strings"
 	"tw/protos/bitcoin"
 	"tw/types"
 
@@ -159,19 +160,21 @@ func main() {
 			Index:    0,
 			Sequence: 0,
 		},
-		Amount: 1000000,
+		Amount: 100,
 		Script: types.TWDataGoBytes(scriptData),
 	}
 
+	fmt.Println(utxo4.Amount, utxo5.Amount, utxo6.Amount)
+
 	input := bitcoin.SigningInput{
 		HashType:      1, // TWBitcoinSigHashTypeAll
-		Amount:        1000000,
+		Amount:        1000001,
 		ByteFee:       10,
 		ToAddress:     types.TWStringGoString(address),
 		ChangeAddress: types.TWStringGoString(address),
 		//PrivateKey:    [][]byte{/*types.TWDataGoBytes(keyData),*/types.TWDataGoBytes(keyData),types.TWDataGoBytes(keyData),types.TWDataGoBytes(keyData),types.TWDataGoBytes(keyData)},
 		PrivateKey: [][]byte{},
-		Utxo:       []*bitcoin.UnspentTransaction{&utxo0 /*&utxo1, &utxo2, &utxo3,*/, &utxo4, &utxo5, &utxo6},
+		Utxo:       []*bitcoin.UnspentTransaction{&utxo0 /*&utxo1, &utxo2, &utxo3,*/, /*&utxo4, &utxo5, &utxo6*/},
 		CoinType:   coinType, // TWCoinTypeBitcoinTest
 	}
 
@@ -201,10 +204,18 @@ func main() {
 	outputData2 := C.TWAnySignerSign(inputData2, coinType)
 	defer C.TWDataDelete(outputData2)
 
+
 	var output bitcoin.SigningOutput
 	_ = proto.Unmarshal(types.TWDataGoBytes(outputData), &output)
 	var output2 bitcoin.SigningOutput
 	_ = proto.Unmarshal(types.TWDataGoBytes(outputData2), &output2)
 	fmt.Println("<== bitcoin signed tx          : ", hex.EncodeToString(output.Encoded))
 	fmt.Println("<== bitcoin signed tx with keys: ", hex.EncodeToString(output2.Encoded))
+
+	unsignedOutputString := hex.EncodeToString(output.Encoded)
+	foundIndex := strings.Index(unsignedOutputString, "5b484153485d3030303030303030303030303030303030303030303030303030303030303030")
+	signatureString := unsignedOutputString[foundIndex: foundIndex + 6 * 2 + 32*2 + 32*2]
+	fmt.Printf("signature %x %s\n", len(signatureString) / 2 + 1 , signatureString)
+
+
 }
